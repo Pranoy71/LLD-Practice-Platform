@@ -1,0 +1,25 @@
+{
+  "name": "lld-practice-platform",
+  "version": "1.0.0",
+  "description": "A focused practice experience for Low-Level Design: choose a problem, submit a design, get explainable feedback, and track attempts.",
+  "author": "Bishal Chandra Debnath",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test",
+    "test:verbose": "node --test --reporter=spec"
+  },
+  "keywords": [
+    "low-level-design",
+    "lld",
+    "practice",
+    "feedback",
+    "interview-prep"
+  ],
+  "license": "MIT"
+}

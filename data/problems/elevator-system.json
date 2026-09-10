@@ -1,0 +1,52 @@
+{
+  "id": "elevator-system",
+  "title": "Elevator System",
+  "difficulty": "MEDIUM",
+  "timeboxMinutes": 50,
+  "context": "A concurrency-flavoured design that is really about strategy: 'which car serves which request' is a policy, and policies should be pluggable. Watch for designs where the Elevator class also implements the scheduling algorithm.",
+  "statement": "Design the low-level structure for a bank of elevators in a building.\n\nThe building has N floors and M elevator cars. Passengers press an up/down call button on a floor; inside a car they press a destination floor button. A controller decides which car serves which call. Each car moves between floors, opens/closes doors, and must not accept new requests while its doors are open or while moving in a direction that cannot serve the request.\n\nThe default dispatch policy is 'nearest suitable car', but the building owner may later switch to zoning (cars dedicated to floor ranges) or peak-hour scheduling.\n\nSafety-relevant behaviour: doors must close before the car moves; a car must not exceed its weight limit; emergency stop brings all cars to the nearest floor.\n\nYour design should make the dispatch policy replaceable and keep the car's own mechanics separate from the building-wide decision logic.",
+  "requirements": [
+    {
+      "id": "EL-1",
+      "text": "Floor calls (up/down) and in-car destination requests are distinct request types and both must be modelled.",
+      "keywords": ["request", "call", "button", "floor", "destination", "direction"]
+    },
+    {
+      "id": "EL-2",
+      "text": "A controller/scheduler decides which car serves which request; the policy is replaceable (nearest car, zoning, peak-hour).",
+      "keywords": ["controller", "scheduler", "dispatch", "strategy", "policy", "assign"]
+    },
+    {
+      "id": "EL-3",
+      "text": "Each car models its own mechanics: current floor, direction, door state, and movement.",
+      "keywords": ["car", "elevator", "door", "direction", "floor", "state"]
+    },
+    {
+      "id": "EL-4",
+      "text": "Safety invariants: doors closed before moving, weight limit respected, emergency stop handled.",
+      "keywords": ["door", "weight", "safety", "emergency", "stop", "invariant"]
+    },
+    {
+      "id": "EL-5",
+      "text": "A car only accepts requests it can serve given its direction and door state (no impossible assignments).",
+      "keywords": ["accept", "serve", "direction", "guard", "eligible", "busy"]
+    },
+    {
+      "id": "EL-6",
+      "text": "The building owns the fleet: cars are registered, and the system works for any N floors / M cars.",
+      "keywords": ["building", "fleet", "register", "floors", "cars", "configurable"]
+    }
+  ],
+  "rubric": [
+    { "key": "requirement-coverage", "label": "Requirement coverage", "weight": 30, "hint": "All six requirements owned by some class?" },
+    { "key": "class-design", "label": "Class design", "weight": 25, "hint": "Car mechanics separate from building-wide scheduling; no god controller." },
+    { "key": "relationships", "label": "Relationships", "weight": 20, "hint": "Controller → cars, requests → policy; who knows whom?" },
+    { "key": "rationale-and-tradeoffs", "label": "Rationale & trade-offs", "weight": 15, "hint": "Strategy choice justified; polling vs event-driven discussed." },
+    { "key": "extensibility", "label": "Extensibility", "weight": 10, "hint": "New dispatch policy without touching ElevatorCar?" }
+  ],
+  "thinkingHints": [
+    "Who runs the loop — does the controller push commands to cars, or do cars pull their next stop?",
+    "Where does the weight-limit check live?",
+    "Is 'nearest suitable car' a method on the controller, or a strategy object? Why?"
+  ]
+}

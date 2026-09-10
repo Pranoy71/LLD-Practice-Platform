@@ -1,0 +1,52 @@
+{
+  "id": "parking-lot",
+  "title": "Parking Lot",
+  "difficulty": "EASY",
+  "timeboxMinutes": 45,
+  "context": "A classic interview warm-up. The interesting design tension is between a naive 'one god class that does everything' and a small set of collaborators (vehicle, spot, ticket, fee policy) that keep change cheap when requirements move.",
+  "statement": "Design the low-level structure for a single parking lot facility.\n\nThe lot has multiple floors; each floor has parking spots of different sizes (motorcycle, compact, large). Vehicles arrive at an entry gate, are assigned a spot, and receive a ticket. At the exit gate the ticket is presented, the fee is computed from the parking duration and the vehicle type, the payment is taken, and the vehicle leaves.\n\nFees differ per vehicle type (e.g. motorcycles are cheaper than cars) and the pricing rule is expected to change over time — promotional rates, hourly vs daily caps, etc.\n\nYour design should make it obvious how a new vehicle type or a new pricing strategy would be added.",
+  "requirements": [
+    {
+      "id": "PL-1",
+      "text": "The lot must track occupancy: which spots are free and which are taken, per spot type.",
+      "keywords": ["spot", "free", "occupanc", "availab", "status"]
+    },
+    {
+      "id": "PL-2",
+      "text": "Vehicles of different types must be supported; spot size compatibility decides where a vehicle may park.",
+      "keywords": ["vehicle", "car", "motorcycle", "type", "size"]
+    },
+    {
+      "id": "PL-3",
+      "text": "Entry and exit are separate flows: entry assigns a spot and issues a ticket; exit computes and collects the fee.",
+      "keywords": ["entry", "exit", "gate", "ticket", "issue"]
+    },
+    {
+      "id": "PL-4",
+      "text": "Fee calculation depends on duration and vehicle type, and the pricing rule must be replaceable without rewriting the exit flow.",
+      "keywords": ["fee", "price", "pricing", "cost", "strategy", "duration"]
+    },
+    {
+      "id": "PL-5",
+      "text": "Finding a spot should be a single responsibility, not something every gate re-implements.",
+      "keywords": ["find", "assign", "allocate", "search", "strategy"]
+    },
+    {
+      "id": "PL-6",
+      "text": "The facility has structure: floors and spots, and the design should model it without hardcoding counts.",
+      "keywords": ["floor", "level", "spot", "structure"]
+    }
+  ],
+  "rubric": [
+    { "key": "requirement-coverage", "label": "Requirement coverage", "weight": 30, "hint": "Are all six requirements visibly owned by some class?" },
+    { "key": "class-design", "label": "Class design", "weight": 25, "hint": "Clear responsibilities, no god class, nouns as classes." },
+    { "key": "relationships", "label": "Relationships", "weight": 20, "hint": "Composition vs association chosen deliberately." },
+    { "key": "rationale-and-tradeoffs", "label": "Rationale & trade-offs", "weight": 15, "hint": "Why this shape? What was rejected?" },
+    { "key": "extensibility", "label": "Extensibility", "weight": 10, "hint": "Where is the seam for a new vehicle type or pricing rule?" }
+  ],
+  "thinkingHints": [
+    "Who owns 'find me a free spot' — the gate, the floor, or the lot?",
+    "Ticket: dumb data holder, or the object that knows how to compute its own fee?",
+    "Where does the pricing strategy plug in?"
+  ]
+}

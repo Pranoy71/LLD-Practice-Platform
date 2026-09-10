@@ -1,0 +1,52 @@
+{
+  "id": "vending-machine",
+  "title": "Vending Machine",
+  "difficulty": "MEDIUM",
+  "timeboxMinutes": 45,
+  "context": "The canonical state-machine problem. Weak answers model it with booleans scattered across methods; strong answers make the state explicit so impossible transitions are unrepresentable.",
+  "statement": "Design the low-level structure of a vending machine controller.\n\nThe machine accepts coins and notes, allows the buyer to select a product, dispenses the product, and returns change. It can refuse exact-change-only purchases when it cannot make change. It must track inventory per product slot and report 'sold out'. A restocker can refill slots. An operator can read totals for accounting.\n\nThe vending behaviour is a sequence: idle → accepting money → product selected → dispensing → returning change (if any) → idle. Invalid actions (selecting before paying, dispensing twice) must be impossible or handled explicitly.\n\nYour design should make the current machine state explicit and show how a future 'card payment' mode would be added without rewriting the machine.",
+  "requirements": [
+    {
+      "id": "VM-1",
+      "text": "The machine's operating state must be explicit (idle, has money, product selected, dispensing) rather than implied by scattered booleans.",
+      "keywords": ["state", "idle", "phase", "machine state", "current state"]
+    },
+    {
+      "id": "VM-2",
+      "text": "Money is inserted, tracked, and refundable — including refusing a selection when change cannot be made.",
+      "keywords": ["coin", "money", "payment", "refund", "change", "note"]
+    },
+    {
+      "id": "VM-3",
+      "text": "Inventory per product slot: quantity, sold-out detection, and restocking.",
+      "keywords": ["inventory", "stock", "slot", "restock", "sold out", "refill"]
+    },
+    {
+      "id": "VM-4",
+      "text": "Product selection and dispensing are separate steps with invalid-action handling.",
+      "keywords": ["select", "dispense", "product", "invalid"]
+    },
+    {
+      "id": "VM-5",
+      "text": "Invalid or impossible transitions are rejected explicitly, not silently ignored.",
+      "keywords": ["invalid", "reject", "error", "transition", "guard"]
+    },
+    {
+      "id": "VM-6",
+      "text": "Accounting/totals are visible to an operator without exposing internals of the sales flow.",
+      "keywords": ["total", "accounting", "operator", "sales", "report"]
+    }
+  ],
+  "rubric": [
+    { "key": "requirement-coverage", "label": "Requirement coverage", "weight": 30, "hint": "All six requirements owned by some class?" },
+    { "key": "class-design", "label": "Class design", "weight": 25, "hint": "State made explicit; no boolean soup; vending logic in one place." },
+    { "key": "relationships", "label": "Relationships", "weight": 20, "hint": "Who owns inventory, who owns money, who orchestrates?" },
+    { "key": "rationale-and-tradeoffs", "label": "Rationale & trade-offs", "weight": 15, "hint": "State pattern vs enum switch — what did you choose and why?" },
+    { "key": "extensibility", "label": "Extensibility", "weight": 10, "hint": "Seam for card payments / new payment methods?" }
+  ],
+  "thinkingHints": [
+    "State pattern (class per state) vs a state enum with guarded transitions — what is your call?",
+    "Who owns the money: the machine, a payment component, or the transaction?",
+    "Where does 'cannot make change' get decided?"
+  ]
+}

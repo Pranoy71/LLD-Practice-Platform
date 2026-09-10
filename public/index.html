@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLD Practice — design, submit, learn</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='13' height='13' rx='3' fill='%234f46e5'/%3E%3Crect x='17' y='2' width='13' height='13' rx='3' fill='%23a5b4fc'/%3E%3Crect x='2' y='17' width='13' height='13' rx='3' fill='%23c7d2fe'/%3E%3Crect x='17' y='17' width='13' height='13' rx='6' fill='%234f46e5'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">LLD&nbsp;Practice</span>
+    </a>
+    <nav class="nav">
+      <a href="#/" data-nav="problems">Problems</a>
+      <a href="#/history" data-nav="history">My attempts</a>
+    </nav>
+    <div class="learner-chip" id="learner-chip" title="Your learner id (stored locally)">demo-learner</div>
+  </header>
+
+  <main id="view" class="view" aria-live="polite">
+    <section class="panel">
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line short"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Practice loop: choose → design → submit → feedback → review → try again</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
